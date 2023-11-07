@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSF/JSFManagedBean.java to edit this template
  */
 package ma.kidda.tpbanquekiddasalaheddine.jsf;
+import ma.kidda.tpbanquekiddasalaheddine.util.Util;
 
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
@@ -16,6 +17,8 @@ import ma.kidda.tpbanquekiddasalaheddine.service.GestionnaireCompte;
  *
  * Backing bean de la page listeComptes.xhtml
  */
+
+
 @Named(value = "listeComptes")
 @ViewScoped
 public class ListeComptes implements Serializable {

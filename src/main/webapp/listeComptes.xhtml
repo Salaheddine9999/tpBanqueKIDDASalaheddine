@@ -1,58 +1,70 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="jakarta.faces.html"
-      xmlns:f="jakarta.faces.core"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
+        <!-- En-tête de la page -->
 
         <ui:composition template="./WEB-INF/templates/template_defaut.xhtml">
+            <!-- Utilisation d'un modèle de page (template) pour la mise en page -->
 
             <ui:define name="top">
                 Liste des comptes
             </ui:define>
+            <!-- Définition du contenu de la zone "top" du modèle -->
 
             <ui:define name="content">
                 <h:form>
+                    <!-- Formulaire principal -->
+
                     <p:dataTable value="#{listeComptes.allComptes}" widgetVar="comptesTable" emptyMessage="Aucun compte avec ce critère" var="item" paginator="true" rows="10">
+                        <!-- Tableau de données PrimeFaces pour afficher la liste des comptes -->
+                        
                         <p:column>
+                            <!-- Colonne pour l'ID -->
                             <f:facet name="header">
                                 <h:outputText value="ID"/>
                             </f:facet>
-                            <h:link outcome="mouvement?id=#{item.id}" 
-                                    value="#{item.id}"/>
+                            <h:link outcome="mouvement?id=#{item.id}" value="#{item.id}"/>
+                            <!-- Lien vers une page de détails en utilisant l'ID du compte -->
                         </p:column>
+                        
                         <p:column sortBy="#{item.nom}">
+                            <!-- Colonne pour le nom -->
                             <f:facet name="header">
                                 <h:outputText value="Nom"/>
                             </f:facet>
                             <h:outputText value="#{item.nom}"/>
                         </p:column>
+                        
                         <p:column sortBy="#{item.solde}">
+                            <!-- Colonne pour le solde -->
                             <f:facet name="header">
                                 <h:outputText value="Solde"/>
                             </f:facet>
                             <h:outputText value="#{item.solde}"/>
                         </p:column>
+                        
                         <p:column>
+                            <!-- Colonne pour les opérations -->
                             <f:facet name="header">
                                 <h:outputText value="Opérations"/>
                             </f:facet>
-                            <h:commandLink action="#{listeComptes.supprimerCompte(item)}"
-                                           title="Supprimer le compte de #{item.nom}" >
+                            <h:commandLink action="#{listeComptes.supprimerCompte(item)}" title="Supprimer le compte de #{item.nom}">
                                 <h:graphicImage name="images/del.png"/>
                             </h:commandLink>
-                            <h:link outcome="modifier?id=#{item.id}" 
-                                    value="Modifier"/>
+                            <!-- CommandLink pour supprimer un compte -->
+                            <h:link outcome="modifier?id=#{item.id}" value="Modifier"/>
+                            <!-- Lien pour modifier un compte en utilisant l'ID du compte -->
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                <!-- Fin du formulaire -->
+
                 <h:messages/>
+                <!-- Affichage des messages globaux (non liés à un champ spécifique) -->
             </ui:define>
-
+            <!-- Fin de la définition du contenu de la zone "content" du modèle -->
         </ui:composition>
-
+        <!-- Fin de l'utilisation du modèle de page -->
     </body>
 </html>
