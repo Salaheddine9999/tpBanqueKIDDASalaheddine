@@ -4,18 +4,28 @@
  */
 package ma.kidda.tpbanquekiddasalaheddine.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Cette classe représente un compte bancaire avec des propriétés telles que l'identifiant, le nom du titulaire et le solde.
  * Elle fournit des méthodes pour déposer et retirer de l'argent, ainsi que des méthodes de base pour la gestion du compte.
  */
-
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "CompteBancaire.findAll", query = "SELECT cb FROM CompteBancaire cb"),
+    @NamedQuery(name = "CompteBancaire.count", query = "SELECT COUNT(cb) FROM CompteBancaire cb"),
+    @NamedQuery(name = "CompteBancaire.findById", query = "SELECT cb FROM CompteBancaire cb WHERE cb.id = :id"),})
 public class CompteBancaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -26,6 +36,9 @@ public class CompteBancaire implements Serializable {
     private String nom;
 
     private int solde;
+    
+    @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)  
+    private List<OperationBancaire> operations = new ArrayList<>();
 
     public CompteBancaire() {
     }
@@ -34,6 +47,10 @@ public class CompteBancaire implements Serializable {
         this.nom = nom;
         this.solde = solde;
     }
+    
+    public List<OperationBancaire> getOperations() {  
+      return operations;  
+    } 
 
     public Long getId() {
         return id;
